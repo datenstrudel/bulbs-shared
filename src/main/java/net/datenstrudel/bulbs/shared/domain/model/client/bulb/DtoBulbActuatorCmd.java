@@ -1,0 +1,89 @@
+package net.datenstrudel.bulbs.shared.domain.model.client.bulb;
+
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Objects;
+
+/**
+ * Wraps all information necessary in order to invoke the change of a Bulb's state.
+ * 
+ * @author Thomas Wendzinski
+ * @version 1.0
+ * @created 08-Jun-2013 23:02:11
+ */
+@ApiModel(
+        value="Control a single bulb",
+        description = "Concrete actuation command to address one specific bulb.",
+        parent=DtoAbstractActuatorCmd.class,
+        discriminator = "type"
+)
+public class DtoBulbActuatorCmd
+        extends DtoAbstractActuatorCmd<DtoBulbActuatorCmd>{
+
+    //~ Member(s) //////////////////////////////////////////////////////////////
+    @NotNull
+    @Size(min=36)
+	private String bulbId;
+
+    @ApiModelProperty(allowableValues = "BULB", position = 1, required = true)
+    private String type = "BULB";
+    
+    //~ Construction ///////////////////////////////////////////////////////////
+    public DtoBulbActuatorCmd(){}
+    
+    //~ Method(s) //////////////////////////////////////////////////////////////
+    public String getBulbId() {
+        return bulbId;
+    }
+    public void setBulbId(String bulbId) {
+        this.bulbId = bulbId;
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+    
+    
+    @Override
+    public boolean sameValueAs(DtoBulbActuatorCmd other) {
+        return this.equals(other);
+    }
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        hash = 97 * hash + (this.bulbId != null ? this.bulbId.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DtoBulbActuatorCmd other = (DtoBulbActuatorCmd) obj;
+        if( !super.equals(obj))return false;
+        if (!Objects.equals(this.bulbId, other.bulbId)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "BulbActuatorCommand{" 
+                + "appId=" + appId 
+                + ", bulbId=" + bulbId 
+//                + ", userApiKey=" + userApiKey 
+                + ", priority=" + priority 
+                + ", states=" + states 
+            + '}';
+    }
+    
+    //~ Private Artifact(s) ////////////////////////////////////////////////////
+}
