@@ -1,4 +1,4 @@
-# Bulbs-Core 
+# Bulbs-Shared
 
 This is a supporting lib for the main project [Bulbs_Core](https://github.com/datenstrudel/bulbs-core).
 
