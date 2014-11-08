@@ -50,7 +50,6 @@
             <groupId>com.mangofactory</groupId>
             <artifactId>swagger-springmvc</artifactId>
             <version>0.8.9-SNAPSHOT</version>
-            <!--<version>0.8.8</version>-->
             <scope>compile</scope>
         </dependency>
 
@@ -122,17 +121,10 @@
         </plugins>
     </build>
 
-    <!--<scm>-->
-        <!--<developerConnection>-->
-            <!--scm:git:ssh://dertom.selfhost.me/var/gitrepos/Bulbs_Shared.git-->
-        <!--</developerConnection>-->
-      <!--<tag>HEAD</tag>-->
-    <!--</scm>-->
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>internal.repo</id>-->
-            <!--<name>Temporary Staging Repository</name>-->
-            <!--<url>file://D:/SW_DEVEL/_Local_MVN_Releases_</url>-->
-        <!--</repository>-->
-    <!--</distributionManagement>-->
+    <scm>
+        <developerConnection>
+            scm:git:https://github.com/datenstrudel/bulbs-shared.git
+        </developerConnection>
+      <tag>HEAD</tag>
+    </scm>
 </project>
