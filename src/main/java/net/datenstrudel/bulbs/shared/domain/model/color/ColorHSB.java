@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * @author Thomas Wendzinski
- * @version 1.0
- * @created 08-Jun-2013 23:02:11
  */
 @ApiModel(
         value="HSB a.k.a. Hue - Saturation - Brightness color implementation",
@@ -68,7 +66,7 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
     // ~ ///////////////////////////////////////////////////////////////////////
 
     /**
-     * TODO: Only forward hue interpolation supported. -> Support backward as well, depending on distance
+     * TODO: Only forward hue interpolation supported. -- Support backward as well, depending on distance
      * @param interpolationEnd
      * @param count
      * @return

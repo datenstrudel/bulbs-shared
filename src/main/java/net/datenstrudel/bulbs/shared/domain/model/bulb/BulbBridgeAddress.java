@@ -10,9 +10,6 @@ import java.io.Serializable;
 /**
  * Value that contains address data in order to communicate with BulbBridge
  * Hardware
- * @author Thomas Wendzinski
- * @version 1.0
- * @created 08-Jun-2013 23:02:11
  */
 public class BulbBridgeAddress implements ValueObject<BulbBridgeAddress>, Serializable {
     //~ Member(s) //////////////////////////////////////////////////////////////

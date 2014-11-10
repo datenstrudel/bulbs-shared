@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author Thomas Wendzinski
  * @version 1.0
- * @created 08-Jun-2013 23:02:11
  */
 @ApiModel(
         value="RGB a.k.a. Red-Green-Blue color implementation",

@@ -9,10 +9,6 @@ import java.util.Objects;
 
 /**
  * Wraps all information necessary in order to invoke the change of a Bulb's state.
- * 
- * @author Thomas Wendzinski
- * @version 1.0
- * @created 08-Jun-2013 23:02:11
  */
 @ApiModel(
         value="Control a single bulb",

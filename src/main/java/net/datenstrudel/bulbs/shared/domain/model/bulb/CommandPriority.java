@@ -5,15 +5,15 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import net.datenstrudel.bulbs.shared.domain.model.ValueObject;
 
 /**
- * A value of {@link BulbActuatorCommand}. This type is used in order to manage concurrent
- * control of Bulbs from different applications. <br /><br />
+ * This type is used in order to manage concurrent control of devices from different applications.
  * There are two types, <code>STANDARD</code> and <code>OVERRIDE</code>. Usually commands
  * are supposed to have <code>STANDARD</code> priority. In case a concurrent application
  * likes to apply commands it sends the 1st command with <code>OVERRIDE</code> priority
  * to put itself in charge. All subsequent commands shall be sent with 
  * <code>STANDARD</code> priority. This way it is made sure that different applications
  * can control the same bulbs without clashing, due to only commands coming from the application
- * that last sent with ovverride priority are actually executed. 
+ * that last sent with ovverride priority are actually executed.
+ * Commands are any classes of type {@link net.datenstrudel.bulbs.shared.domain.model.client.bulb.DtoAbstractActuatorCmd DtoAbstractActuatorCmd}
  * 
  * @author Thomas Wendzinski
  */

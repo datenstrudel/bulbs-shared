@@ -4,9 +4,6 @@ package net.datenstrudel.bulbs.shared.domain.model.bulb;
  * Thrown for any case there was a problem interacting with underlying hardware interface(s).
  * This includes errors returned by hardware as well es errors that occur on communication attempts
  * with hardware (e.g. network problems).
- * @author Thomas Wendzinski
- * @version 1.0
- * @created 08-Jun-2013 22:51:41
  */
 public class BulbBridgeHwException extends Exception {
 

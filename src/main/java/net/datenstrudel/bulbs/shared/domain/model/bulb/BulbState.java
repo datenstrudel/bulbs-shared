@@ -9,9 +9,6 @@ import java.io.Serializable;
 
 /**
  * A value object that represents the state of a bulb.
- * @author derTom
- * @version 1.0
- * @created 08-Jun-2013 23:02:11
  */
 @ApiModel(value = "Defines a single state of a single bulb.")
 public class BulbState implements ValueObject<BulbState>, Serializable {
@@ -58,7 +55,7 @@ public class BulbState implements ValueObject<BulbState>, Serializable {
     /**
      * Merge the <code>updated</code> state into <code>this</code>', returning a new object,
      * leaving <code>this</code> as is
-     * @param updated
+     * @param updated the new state to merge from
      * @return new merged state
      */
     public BulbState mergeUpdated(BulbState updated){

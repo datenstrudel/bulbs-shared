@@ -89,12 +89,7 @@ public enum ColorScheme implements ValueObject<ColorScheme>, Serializable{
      * fractional number is then multiplied by 360 to produce the hue
      * angle in the HSB color model.
      * <p>
-     * The integer that is returned by <code>HSBtoRGB</code> encodes the
-     * value of a color in bits 0-23 of an integer value that is the same
-     * format used by the method {@link #getRGB() <code>getRGB</code>}.
-     * This integer can be supplied as an argument to the
-     * <code>Color</code> constructor that takes a single integer argument.
-     * 
+     *
      * Source of this algorithm: java.awt.Color
      * @param     hue   the hue component of the color
      * @param     saturation   the saturation of the color

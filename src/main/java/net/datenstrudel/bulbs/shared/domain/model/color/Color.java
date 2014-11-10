@@ -4,9 +4,7 @@ import java.util.List;
 
 /**
  * @author Thomas Wendzinski
- * @version 1.0
  * @param <T>
- * @created 08-Jun-2013 23:02:11
  */
 public abstract class Color<T extends Color>{
 
