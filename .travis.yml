@@ -15,6 +15,7 @@ before_install:
    - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
 
 after_success:
+   skip_cleanup: true
    - gpg --import local.pubring.gpg
    - gpg --allow-secret-key-import --import local.secring.gpg
    - gpg --list-keys
