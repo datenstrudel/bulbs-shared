@@ -8,6 +8,7 @@ env:
       - secure: "fyrge5fWmxi7rVkvtcLyiBfSjc27J0K5JQdFcVyoRwXH5BcTf9Vz02jUmh04ulojdINRppdh7yAFa2S9b0DOQXe65DyT/Ackinpl4YPzL0W2ABoWSw6Hwp0IrMCXGPOC6fqC+4gtJoxEedGV3DK3EVr344jNl4UFQwkj3E4PjOc="
       - secure: "OFHM1q76Zox2FzWb6AcPzQ9M1pV00EZxqVveFY7kYdJYMKe0+k+520o/YI7RJXc1DCKHtJnKcKtd8q0lZtDDtzjq5gq/0AYtT1ZRpPv/W9a8fzL39GaUrFfXLEvrsGKQjQq3spDY4j0q5FV/vOrz38KXIrcZGf6RJAFcMY33Zzs="
       - secure: "CuEkNSQTm0wmTvWx34tQwHovA98QMlMijC2+2Jx1y7SfTDFgPPuIjDxwU9MqCmZFA0rWU0z4g8bLGiynzcMZt2Uk0Af8gogM+8OaTJeStuQakbmNcHT4BNIhbq0IAsSxV0P+lyjBj894oR0gUTQ3eCc4OskFZ9BNx4UwQDoLZrI="
+      - secure: "PchnjgO0v8XHiuIi3KEhFi4fKCSacBLLhfFVKy0uKFZ4vCtwuHUUBxjZafdZA6bndatwSpUMB6kDy4Kt+Di78PYhxurDwWSehdAEIL6JMByupm2eIRBvWPrp9oHQaMGz8G7l/lL0RHIk+8D5IePDfcoszz7Sr+WKQ+YmQFqB+YU="
 
 before_install:
    - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in pubring.gpg.encr -out local.pubring.gpg -d
@@ -19,5 +20,7 @@ after_success:
    - gpg --list-keys
    - echo "Branch is "$TRAVIS_BRANCH
    - git config --global user.email "twx1@gmx.de"
-   - git config --global user.name "datenstrudel"
+   - git config --global user.name "Travis CI Release"
+   - git config credential.helper "store --file=.git/credentials"
+   - echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
    - "[[ $TRAVIS_BRANCH=='ci/releaseConfig' ]]&&{ mvn -B release:clean release:prepare --settings settings.xml; mvn release:perform --settings settings.xml; }"
