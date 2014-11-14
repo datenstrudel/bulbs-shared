@@ -18,4 +18,6 @@ after_success:
    - gpg --allow-secret-key-import --import local.secring.gpg
    - gpg --list-keys
    - echo "Branch is "$TRAVIS_BRANCH
+   - git config --global user.email "twx1@gmx.de"
+   - git config --global user.name "datenstrudel"
    - "[[ $TRAVIS_BRANCH=='ci/releaseConfig' ]]&&{ mvn -B release:clean release:prepare --settings settings.xml; mvn release:perform --settings settings.xml; }"
