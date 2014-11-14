@@ -15,7 +15,6 @@ before_install:
    - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
 
 after_success:
-   skip_cleanup: true
    - gpg --import local.pubring.gpg
    - gpg --allow-secret-key-import --import local.secring.gpg
    - gpg --list-keys
@@ -24,4 +23,6 @@ after_success:
    - git config --global user.name "Travis CI Release"
    - git config credential.helper "store --file=.git/credentials"
    - echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
+   - echo "HEAD is:"
+   - cat .git/HEAD
    - "[[ $TRAVIS_BRANCH=='ci/releaseConfig' ]]&&{ mvn -B release:clean release:prepare --settings settings.xml; mvn release:perform --settings settings.xml; }"
