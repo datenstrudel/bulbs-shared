@@ -12,6 +12,7 @@ if [ ${TRAVIS_BRANCH}="ci/releaseConfig" ]; then
   echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
+  git stash
   mvn -B release:clean release:prepare --settings settings.xml
   mvn release:perform --settings settings.xml
 fi
