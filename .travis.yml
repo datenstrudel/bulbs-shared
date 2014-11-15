@@ -23,6 +23,6 @@ after_success:
    - git config --global user.name "Travis CI Release"
    - git config credential.helper "store --file=.git/credentials"
    - echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
-   - echo "HEAD is:"
-   - cat .git/HEAD
-   - "[[ $TRAVIS_BRANCH=='ci/releaseConfig' ]]&&{ mvn -B release:clean release:prepare --settings settings.xml; mvn release:perform --settings settings.xml; }"
+   - git reset --hard $TRAVIS_BRANCH
+   - cat .git/HEAD|xargs echo "Head is: "
+   - "[ $TRAVIS_BRANCH=='ci/releaseConfig' ] && { mvn -B release:clean release:prepare --settings settings.xml; mvn release:perform --settings settings.xml; }"
