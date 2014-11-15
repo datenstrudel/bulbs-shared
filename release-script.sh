@@ -10,7 +10,6 @@ if [ ${TRAVIS_BRANCH}="ci/releaseConfig" ]; then
   git config --global user.name "Travis CI Release"
   git config credential.helper "store --file=.git/credentials"
   echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
-  git checkout $TRAVIS_BRANCH
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
   mvn -B release:clean release:prepare --settings settings.xml

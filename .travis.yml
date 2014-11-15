@@ -15,5 +15,6 @@ before_install:
    - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
 
 after_success:
+   - git checkout $TRAVIS_BRANCH
    - sudo chmod +x release-script.sh
    - ./release-script.sh
