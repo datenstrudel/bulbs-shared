@@ -2,6 +2,10 @@
 set -ev
 
 if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
+  git clone --depth=50 --branch=master git://github.com/datenstrudel/bulbs-shared.git master
+  cd master
+  openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in pubring.gpg.encr -out local.pubring.gpg -d
+  openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
   gpg --import local.pubring.gpg
   gpg --allow-secret-key-import --import local.secring.gpg
   gpg --list-keys
@@ -12,7 +16,6 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
-  git checkout master
   mvn -B release:clean release:prepare --settings settings.xml
   mvn release:perform --settings settings.xml
 fi

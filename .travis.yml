@@ -10,10 +10,6 @@ env:
       - secure: "CuEkNSQTm0wmTvWx34tQwHovA98QMlMijC2+2Jx1y7SfTDFgPPuIjDxwU9MqCmZFA0rWU0z4g8bLGiynzcMZt2Uk0Af8gogM+8OaTJeStuQakbmNcHT4BNIhbq0IAsSxV0P+lyjBj894oR0gUTQ3eCc4OskFZ9BNx4UwQDoLZrI="
       - secure: "PchnjgO0v8XHiuIi3KEhFi4fKCSacBLLhfFVKy0uKFZ4vCtwuHUUBxjZafdZA6bndatwSpUMB6kDy4Kt+Di78PYhxurDwWSehdAEIL6JMByupm2eIRBvWPrp9oHQaMGz8G7l/lL0RHIk+8D5IePDfcoszz7Sr+WKQ+YmQFqB+YU="
 
-before_install:
-   - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in pubring.gpg.encr -out local.pubring.gpg -d
-   - openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
-
 after_success:
    - git checkout $TRAVIS_BRANCH
    - sudo chmod +x release-script.sh
