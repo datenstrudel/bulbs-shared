@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ev
-
+BRANCH_TO_RELEASE="test/release"
 if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
-  git clone --depth=50 --branch=master git://github.com/datenstrudel/bulbs-shared.git master
+  git clone --depth=50 --branch=${BRANCH_TO_RELEASE} git://github.com/datenstrudel/bulbs-shared.git master
   cd master
   openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in pubring.gpg.encr -out local.pubring.gpg -d
   openssl aes-256-cbc -pass pass:$GPG_ENCR_KEY -in secring.gpg.encr -out local.secring.gpg -d
@@ -17,5 +17,5 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
   mvn -B release:clean release:prepare --settings settings.xml
-  mvn release:perform --settings settings.xml
+  mvn -B release:perform -Dgpg.passphrase=${GPG_PASSPHRASE} --settings settings.xml
 fi
