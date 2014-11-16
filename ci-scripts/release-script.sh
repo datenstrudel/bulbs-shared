@@ -17,7 +17,7 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   echo "https://${TRAVIS_GITHUB_TK}:@github.com" > .git/credentials
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
-  PASSPHRASE_STRING="-Darguments=\"-Dgpg.passphrase="${GPG_PASSPHRASE}"\""
+  PASSPHRASE_STRING="-Darguments=-Dgpg.passphrase="${GPG_PASSPHRASE}
   mvn -B release:clean release:prepare --settings ci-scripts/settings.xml
   mvn -B release:perform ${PASSPHRASE_STRING} --settings ci-scripts/settings.xml
 fi
