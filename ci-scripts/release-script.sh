@@ -5,8 +5,8 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   git clone --depth=50 --branch=${BRANCH_TO_RELEASE} git://github.com/datenstrudel/bulbs-shared.git master
   cd master
   pwd | xargs echo "Operating in path: "
-  openssl aes-256-cbc -pass pass:${GPG_ENCR_KEY} -in ci-scripts/pubring.gpg.encr -out ci-scripts/local.pubring.gpg -d
-  openssl aes-256-cbc -pass pass:${GPG_ENCR_KEY} -in ci-scripts/secring.gpg.encr -out ci-scripts/local.secring.gpg -d
+  openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/pubring.gpg.encr -out ci-scripts/local.pubring.gpg
+  openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/secring.gpg.encr -out ci-scripts/local.secring.gpg
   gpg --import ci-scripts/local.pubring.gpg
   gpg --allow-secret-key-import --import ci-scripts/local.secring.gpg
   gpg --list-keys
