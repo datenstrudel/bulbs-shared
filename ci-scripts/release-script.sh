@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ev
-BRANCH_TO_RELEASE="test/release"
+BRANCH_TO_RELEASE="master"
 if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   git clone --depth=50 --branch=${BRANCH_TO_RELEASE} git://github.com/datenstrudel/bulbs-shared.git master
   cd master
