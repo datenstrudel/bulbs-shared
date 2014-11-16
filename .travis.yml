@@ -12,5 +12,5 @@ env:
 
 after_success:
    - git checkout $TRAVIS_BRANCH
-   - sudo chmod +x release-script.sh
-   - ./release-script.sh
+   - sudo chmod +x ci-scripts/release-script.sh
+   - ./ci-scripts/release-script.sh
