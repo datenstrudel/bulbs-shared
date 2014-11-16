@@ -19,5 +19,5 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   echo "Starting Maven release... "
   PASSPHRASE_STRING="-Darguments=\"-Dgpg.passphrase="${GPG_PASSPHRASE}"\""
   mvn -B release:clean release:prepare --settings ci-scripts/settings.xml
-  mvn -B release:perform -Dgpg.passphrase=${GPG_PASSPHRASE} ${PASSPHRASE_STRING} --settings ci-scripts/settings.xml
+  mvn -B release:perform ${PASSPHRASE_STRING} --settings ci-scripts/settings.xml
 fi
