@@ -18,5 +18,5 @@ if [ "${TRAVIS_BRANCH}" = "ci/releaseTrigger" ]; then
   cat .git/HEAD|xargs echo "Head is: "
   echo "Starting Maven release... "
   mvn -B release:clean release:prepare --settings ci-scripts/settings.xml
-  mvn -B release:perform --settings ci-scripts/settings.xml
+  mvn -B release:perform -Dgpg.passphrase=${GPG_PASSPHRASE} -Darguments="-Dgpg.passphrase=${GPG_PASSPHRASE}" --settings ci-scripts/settings.xml
 fi
