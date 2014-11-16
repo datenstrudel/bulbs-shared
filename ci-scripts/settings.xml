@@ -17,7 +17,7 @@
             <id>gpg</id>
             <properties>
                 <gpg.executable>gpg</gpg.executable>
-                <gpg.keyname>EDDF5B2A</gpg.keyname>
+                <gpg.keyname>twx1@gmx.de</gpg.keyname>
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
             </properties>
         </profile>
