@@ -9,11 +9,14 @@ import java.io.Serializable;
  */
 public abstract class IdentifiedDomainObject<ID> implements Serializable{
     //~ Member(s) //////////////////////////////////////////////////////////////
-    private ID id;
+    protected ID id;
     private Long version;
     
     //~ Construction ///////////////////////////////////////////////////////////
     public IdentifiedDomainObject() {
+    }
+    public IdentifiedDomainObject(ID id) {
+        this.id = id;
     }
 
     //~ Method(s) //////////////////////////////////////////////////////////////
