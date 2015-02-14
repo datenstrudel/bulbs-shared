@@ -19,20 +19,20 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
 
     //~ Member(s) //////////////////////////////////////////////////////////////
 	/**
-	 * D=[0;255]
-	 */
-    @ApiModelProperty(allowableValues = "0,255", required = true)
-	private final float brightness;
-	/**
 	 * D=[0;360]
 	 */
     @ApiModelProperty(allowableValues = "0,360", required = true)
-	private final float hue ;
+	private final float hue;
 	/**
 	 * D=[0;255]
 	 */
     @ApiModelProperty(allowableValues = "0,255", required = true)
 	private final float saturation;
+	/**
+	 * D=[0;255]
+	 */
+    @ApiModelProperty(allowableValues = "0,255", required = true)
+	private final float brightness;
 
     @ApiModelProperty(allowableValues = "HSB", required = true, position = 1)
     private final ColorScheme COLOR_SCHEME = ColorScheme.HSB;
@@ -43,28 +43,34 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
         hue = 0f;
         saturation = 255f;
 	}
-    public ColorHSB(float brightness, float hue, float saturation) {
-        assert(brightness >=0f && brightness <=255f);
-        assert(hue >=0f && hue <= 360f);
-        assert(saturation >=0f && saturation <=255f);
-        this.brightness = brightness;
+
+    /**
+     * Init HSB color given hue, saturation, brightness
+     * @param hue in range [0, 360]
+     * @param saturation in range [0, 255]
+     * @param brightness in range [0, 255]
+     */
+    public ColorHSB(float hue, float saturation, float brightness) {
+        assert(hue >= 0f && hue <= 360f);
+        assert(saturation >= 0f && saturation <= 255f);
+        assert(brightness >= 0f && brightness <= 255f);
         this.hue = hue;
-        this.saturation = saturation; 
+        this.saturation = saturation;
+        this.brightness = brightness;
     }
 
     //~ Method(s) //////////////////////////////////////////////////////////////
-    public float getBrightness() {
-        return brightness;
-    }
     public float getHue() {
         return hue;
     }
     public float getSaturation() {
         return saturation;
     }
-    
-    // ~ ///////////////////////////////////////////////////////////////////////
+    public float getBrightness() {
+        return brightness;
+    }
 
+    // ~ ///////////////////////////////////////////////////////////////////////
     /**
      * TODO: Only forward hue interpolation supported. -- Support backward as well, depending on distance
      * @param interpolationEnd
@@ -83,9 +89,8 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
         for (int i = 1; i < count; i++) {
             tmpColor = res.get(i-1);
             res.add( new ColorHSB(
-                    tmpColor.brightness + step_Brightness, 
-                    tmpColor.hue + step_Hue, 
-                    tmpColor.saturation + step_Sat)) ;
+                    tmpColor.hue + step_Hue, tmpColor.saturation + step_Sat, tmpColor.brightness + step_Brightness
+            )) ;
         }
         res.add(interpolationEnd);
         return (List) res;

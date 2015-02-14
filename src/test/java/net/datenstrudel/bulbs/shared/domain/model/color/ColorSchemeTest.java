@@ -5,7 +5,8 @@
 package net.datenstrudel.bulbs.shared.domain.model.color;
 
 import junit.framework.TestCase;
-import org.slf4j.Logger; import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -44,7 +45,7 @@ public class ColorSchemeTest extends TestCase {
     public void testHSBtoRGB() {
         
         System.out.println("RGBtoHSB");
-        ColorHSB hsb = new ColorHSB(1f, 0f, 1f);
+        ColorHSB hsb = new ColorHSB(0f, 1f, 1f);
 //        ColorRGB result = ColorScheme.HSBtoRGB(hsb);
         ColorRGB result = ColorScheme.HSBtoRGB(0.3891050f, 1f, 1f);
         log.info("HSB: " + hsb + "RGB: "+result);

@@ -13,7 +13,7 @@ public class ColorHSBTest {
     @Test
     public void lLinearInterpolation() throws Exception {
         ColorHSB start = new ColorHSB(0f, 0f, 0f);
-        ColorHSB end = new ColorHSB(200f, 360f, 100f);
+        ColorHSB end = new ColorHSB(360f, 100f, 200f);
 
         List<ColorHSB> res = (List) start.linearInterpolation(end, 360);
 

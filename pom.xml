@@ -101,8 +101,7 @@
                     <!--<excludedGroups>net.datenstrudel.bulbs.core.IntegrationTest</excludedGroups>-->
                     <!--<encoding>${project.build.sourceEncoding}</encoding>-->
                     <!--<parallel>classes</parallel>-->
-                    <threadCount>10</threadCount>
-                    <forkCount>10</forkCount>
+                    <forkCount>2</forkCount>
                     <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
