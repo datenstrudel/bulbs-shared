@@ -44,7 +44,10 @@ public class BulbBridgeAddress implements ValueObject<BulbBridgeAddress>, Serial
     public Integer getPort() {
         return port;
     }
-    public Optional<String> getMacAddress() {
+    private String getMacAddress() {
+        return macAddress;
+    }
+    public Optional<String> macAddress() {
         return Optional.ofNullable(macAddress);
     }
 
