@@ -111,6 +111,20 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
 
         return true;
     }
+
+    public boolean equalsInteger(Color o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ColorHSB colorHSB = (ColorHSB) o;
+
+        if (Integer.compare((int) colorHSB.brightness, (int)brightness) != 0) return false;
+        if (Integer.compare((int) colorHSB.hue, (int) hue) != 0) return false;
+        if (Integer.compare((int) colorHSB.saturation, (int) saturation) != 0) return false;
+        if (COLOR_SCHEME != colorHSB.COLOR_SCHEME) return false;
+
+        return true;
+    }
     @Override
     public int hashCode() {
         int result = (brightness != +0.0f ? Float.floatToIntBits(brightness) : 0);
