@@ -1,5 +1,6 @@
 package net.datenstrudel.bulbs.shared.domain.model.color;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @ApiModel(
         value="HSB a.k.a. Hue - Saturation - Brightness color implementation",
         parent = Color.class,
-        discriminator = "COLOR_SCHEME"
+        discriminator = "colorScheme"
 )
 public class ColorHSB extends Color<ColorHSB> implements Serializable {
 
@@ -34,7 +35,8 @@ public class ColorHSB extends Color<ColorHSB> implements Serializable {
     @ApiModelProperty(allowableValues = "0,255", required = true)
 	private final float brightness;
 
-    @ApiModelProperty(allowableValues = "HSB", required = true, position = 1)
+    @JsonIgnore
+    @ApiModelProperty(value = "colorScheme", allowableValues = "HSB", required = true, position = 1)
     private final ColorScheme COLOR_SCHEME = ColorScheme.HSB;
 
     //~ Construction ///////////////////////////////////////////////////////////

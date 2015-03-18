@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package net.datenstrudel.bulbs.shared.domain.model.scheduling;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.quartz.CronExpression;
 
 import java.time.LocalDateTime;
@@ -14,21 +8,15 @@ import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  *
  * @author Thomas Wendzinski
  */
-public class PointInTimeTriggerTest extends TestCase {
+public class PointInTimeTriggerTest {
     
-    public PointInTimeTriggerTest(String testName) {
-        super(testName);
-    }
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
+    @Test
     public void testToCronExpression() {
         System.out.println("toCronExpression");
         PointInTimeTrigger instance = new PointInTimeTrigger(
@@ -39,7 +27,7 @@ public class PointInTimeTriggerTest extends TestCase {
         CronExpression result = instance.toCronExpression();
         assertEquals(expResult, result.getCronExpression());
     }
-
+    @Test
     public void testIsExpired() throws Exception{
         System.out.println("isExpired");
         PointInTimeTrigger instance = new PointInTimeTrigger(
@@ -52,5 +40,6 @@ public class PointInTimeTriggerTest extends TestCase {
         result = instance.isExpired();
         assertEquals(true, result);
     }
+
 
 }

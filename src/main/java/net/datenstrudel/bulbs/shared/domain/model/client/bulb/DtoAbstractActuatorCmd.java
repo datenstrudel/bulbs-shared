@@ -1,5 +1,8 @@
 package net.datenstrudel.bulbs.shared.domain.model.client.bulb;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import net.datenstrudel.bulbs.shared.domain.model.ValueObject;
@@ -18,6 +21,15 @@ import java.util.List;
  * @author Thomas Wendzinski
  * @param <T>
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @Type(value = DtoBulbActuatorCmd.class, name = "BULB"),
+        @Type(value = DtoGroupActuatorCmd.class, name = "GROUP"),
+        @Type(value = DtoPresetActuatorCmd.class, name = "PRESET"),
+        @Type(value = DtoActuationCancelCmd.class, name = "CANCEL") })
 @ApiModel(
         subTypes = {DtoBulbActuatorCmd.class, DtoActuationCancelCmd.class, DtoGroupActuatorCmd.class, DtoPresetActuatorCmd.class},
         discriminator = "type",
