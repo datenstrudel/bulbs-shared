@@ -1,0 +1,97 @@
+
+apply plugin: 'signing'
+
+def isReleaseBuild() {
+    println "project version detected: $properties.version "
+//    return !properties..version.contains("SNAPSHOT")
+    return false
+}
+def onlyFor(task, config) {
+    println "Configuring task: $task.name"
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.hasTask(task)) {
+            project.configure(project, config)
+        }
+    }
+}
+//onlyFor(releaseToPublic){
+//
+//}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+task releaseToPublic {
+//    dependsOn uploadArchives
+//    dependsOn signArchives
+}
+signing {
+    println "Is Release Build: " + isReleaseBuild()
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+//gradle.taskGraph.whenReady {taskGraph ->
+//    if (taskGraph.hasTask(releaseToPublic)) {
+//
+//    }
+//}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Example Application'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'This is a supporting lib for the main project Bulbs_Core at https://github.com/datenstrudel/bulbs-core'
+                url 'https://github.com/datenstrudel/bulbs-shared'
+
+                scm {
+                    connection 'scm:git:https://github.com/datenstrudel/bulbs-shared.git'
+                    developerConnection 'scm:git:https://github.com/datenstrudel/bulbs-shared.git'
+                    url 'https://github.com/datenstrudel/bulbs-shared.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'datenstrudel'
+                        name 'Thomas Wendzinski'
+                        email 'twx1@gmx.de'
+                    }
+                }
+            }
+        }
+    }
+}
