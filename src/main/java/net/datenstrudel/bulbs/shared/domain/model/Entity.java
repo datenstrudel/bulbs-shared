@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  *
  * @param <T> implementing class type
- * @param <ID> 
+ * @param <ID> Type of Id
  * @author Thomas Wendzinski
  */
 public abstract class Entity<T extends Entity, ID> extends IdentifiedDomainObject<ID> 
@@ -13,6 +13,12 @@ public abstract class Entity<T extends Entity, ID> extends IdentifiedDomainObjec
 
     //~ Member(s) //////////////////////////////////////////////////////////////
     //~ Construction ///////////////////////////////////////////////////////////
+
+    public Entity() {
+    }
+    public Entity(ID id) {
+        super(id);
+    }
     //~ Method(s) //////////////////////////////////////////////////////////////
     /**
      * Entities compare by identity, not by attributes.

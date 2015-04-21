@@ -10,6 +10,7 @@ public enum BulbsPlatform implements Serializable{
     
     _EMULATED,
     PHILIPS_HUE,
+    LIFX,
     ;
 
     public static final String allValues(){

@@ -74,7 +74,7 @@ public enum ColorScheme implements ValueObject<ColorScheme>, Serializable{
             if (hue < 0)
                 hue = hue + 1.0f;
         }
-        return new ColorHSB(brightness, hue, saturation);
+        return new ColorHSB(hue, saturation, brightness);
      }
      
      /**

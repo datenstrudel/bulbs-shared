@@ -91,16 +91,37 @@ public class BulbState implements ValueObject<BulbState>, Serializable {
     }
     @Override
     public boolean equals(Object obj) {
+        if(this == obj) return true;
         if (obj == null) {
             return false;
         }
-        if(this == obj) return true;
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
         final BulbState other = (BulbState) obj;
         if (this.color != other.color && (this.color == null || !this.color.equals(other.color))) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (this.transitionDelay != other.transitionDelay) {
+            return false;
+        }
+        return true;
+    }
+    public boolean equalsInteger(Object obj) {
+        if(this == obj) return true;
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BulbState other = (BulbState) obj;
+        if (this.color != other.color && (this.color == null || !this.color.equalsInteger(other.color))) {
             return false;
         }
         if (this.enabled != other.enabled) {
