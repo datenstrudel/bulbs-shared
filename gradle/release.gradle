@@ -2,15 +2,15 @@
 apply plugin: 'signing'
 
 ext.isReleaseBuild = false
+def isReleaseBuild() {
+    println "Is Release Build: $ext.isReleaseBuild"
+    return ext.isReleaseBuild
+}
 gradle.taskGraph.whenReady { graph ->
     def isRelease = graph.hasTask(uploadArchives)
     println "Is Release Build: $isRelease"
     ext.isReleaseBuild = isRelease
     return isRelease
-}
-def isReleaseBuild() {
-    println "Is Release Build: $ext.isReleaseBuild"
-    return ext.isReleaseBuild
 }
 
 task javadocJar(type: Jar) {
@@ -86,5 +86,10 @@ uploadArchives {
         }
     }
 }
-
 uploadArchives.dependsOn assemble
+
+uploadArchives.doFirst {
+    // Prepare signing certificates
+    commandLine 'openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/pubring.gpg.encr -out ci-scripts/pubring.gpg'
+    commandLine 'openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/secring.gpg.encr -out ci-scripts/secring.gpg'
+}
