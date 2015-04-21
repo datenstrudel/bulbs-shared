@@ -42,7 +42,7 @@ import java.util.Date;
         @Type(value = PointInTimeTrigger.class, name = "PointInTimeTrigger"),
         @Type(value = IntervalTrigger.class, name = "IntervalTrigger"),
         @Type(value = DaysOfWeekTrigger.class, name = "DaysOfWeekTrigger") })
-@ApiModel(value = "Defines the actual trigger time(s)", discriminator = "type",
+@ApiModel(description = "Defines the actual trigger time(s)", discriminator = "type",
         subTypes = {DaysOfWeekTrigger.class, PointInTimeTrigger.class, IntervalTrigger.class})
 public abstract class Trigger implements  ValueObject<Trigger> {
     

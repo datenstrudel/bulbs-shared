@@ -14,7 +14,6 @@ import java.util.Objects;
  * Wraps all information necessary in order to invoke the change of a Bulb's state.
  */
 @ApiModel(
-        value="Control a single bulb",
         description = "Concrete actuation command to address one specific bulb.",
         parent=DtoAbstractActuatorCmd.class,
         discriminator = "type"

@@ -88,8 +88,18 @@ uploadArchives {
 }
 uploadArchives.dependsOn assemble
 
-uploadArchives.doFirst {
-    // Prepare signing certificates
-    commandLine 'openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/pubring.gpg.encr -out ci-scripts/pubring.gpg'
-    commandLine 'openssl aes-256-cbc -d -a -pass pass:${GPG_ENCR_KEY} -in ci-scripts/secring.gpg.encr -out ci-scripts/secring.gpg'
+task provideSecring(type:Exec){
+    onlyIf{
+        return isReleaseBuild()
+    }
+    commandLine 'openssl', 'aes-256-cbc', '-d', '-a', '-pass', 'pass:' + gpgFileEncryptionKey, '-in', 'ci-scripts/pubring.gpg.encr', '-out', 'ci-scripts/pubring.gpg'
+
 }
+task providePubring(type:Exec){
+    onlyIf{
+        return isReleaseBuild()
+    }
+    commandLine 'openssl', 'aes-256-cbc', '-d', '-a', '-pass', 'pass:' + gpgFileEncryptionKey, '-in', 'ci-scripts/secring.gpg.encr', '-out', 'ci-scripts/secring.gpg'
+}
+signArchives.dependsOn provideSecring
+signArchives.dependsOn providePubring

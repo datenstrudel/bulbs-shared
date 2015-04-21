@@ -17,7 +17,7 @@ import net.datenstrudel.bulbs.shared.domain.model.ValueObject;
  * 
  * @author Thomas Wendzinski
  */
-@ApiModel(value="Whether to override or not an existing actuation that might currently taking place")
+@ApiModel(description="Whether to override or not an existing actuation that might currently taking place")
 public class CommandPriority implements ValueObject<CommandPriority>{
 
     //~ Member(s) //////////////////////////////////////////////////////////////

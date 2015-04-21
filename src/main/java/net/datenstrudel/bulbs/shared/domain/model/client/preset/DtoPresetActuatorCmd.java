@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author Thomas Wendzinski
  */
 @ApiModel(
-        value="Apply a preset",
+        description="Apply a preset",
         parent=DtoAbstractActuatorCmd.class,
         discriminator = "type"
 )

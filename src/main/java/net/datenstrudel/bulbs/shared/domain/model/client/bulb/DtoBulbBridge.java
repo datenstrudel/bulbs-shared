@@ -13,8 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author Thomas Wendzinski
  */
 @ApiModel(
-        value="Wraps controllable devices",
-        description = "Manage device controllers"
+    description = "Represents devices' controller of a specific vendor(platform)"
 )
 public class DtoBulbBridge {
 

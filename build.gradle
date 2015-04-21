@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-apply from: 'gradle/release.gradle'
+apply from: 'ci-scripts/release.gradle'
 
 group = 'net.datenstrudel.bulbs'
 archivesBaseName = "bulbs-shared"
