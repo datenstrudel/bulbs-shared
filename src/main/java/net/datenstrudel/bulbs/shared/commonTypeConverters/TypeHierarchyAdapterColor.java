@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
  *
  * @author Thomas Wendzinski
  */
+@Deprecated
 public class TypeHierarchyAdapterColor 
         implements JsonSerializer<Color>, JsonDeserializer<Color> {
 

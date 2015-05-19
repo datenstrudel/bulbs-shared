@@ -1,5 +1,8 @@
 package net.datenstrudel.bulbs.shared.domain.model.scheduling;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import net.datenstrudel.bulbs.shared.domain.model.ValueObject;
@@ -31,14 +34,23 @@ import java.util.Date;
  * @see net.datenstrudel.bulbs.shared.domain.model.scheduling.PointInTimeTrigger
  * @author Thomas Wendzinski
  */
-@ApiModel(value = "Defines the actual trigger time(s)", discriminator = "type",
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @Type(value = PointInTimeTrigger.class, name = "PointInTimeTrigger"),
+        @Type(value = IntervalTrigger.class, name = "IntervalTrigger"),
+        @Type(value = DaysOfWeekTrigger.class, name = "DaysOfWeekTrigger") })
+@ApiModel(description = "Defines the actual trigger time(s)", discriminator = "type",
         subTypes = {DaysOfWeekTrigger.class, PointInTimeTrigger.class, IntervalTrigger.class})
 public abstract class Trigger implements  ValueObject<Trigger> {
     
     static final Logger log = LoggerFactory.getLogger(Trigger.class);
+
     @ApiModelProperty(allowableValues = "DaysOfWeekTrigger, PointInTimeTrigger, InervalTrigger")
     private String type = this.getClass().getSimpleName();
-    
+
     //~ ///////////////////////////////////////////////////////////////////////
     /**
      * @return this trigger as cron expression

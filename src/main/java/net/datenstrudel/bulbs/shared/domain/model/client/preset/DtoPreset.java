@@ -24,7 +24,11 @@ public class DtoPreset{
     //~ Construction ///////////////////////////////////////////////////////////
     public DtoPreset() {
     }
-    
+    public DtoPreset(String presetId, String name, List<DtoAbstractActuatorCmd> states) {
+        this.presetId = presetId;
+        this.name = name;
+        this.states = states;
+    }
     //~ Method(s) //////////////////////////////////////////////////////////////
 
     public String getPresetId() {

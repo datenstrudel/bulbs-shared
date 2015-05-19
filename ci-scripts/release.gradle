@@ -1,0 +1,105 @@
+
+apply plugin: 'signing'
+
+ext.isReleaseBuild = false
+def isReleaseBuild() {
+    println "Is Release Build: $ext.isReleaseBuild"
+    return ext.isReleaseBuild
+}
+gradle.taskGraph.whenReady { graph ->
+    def isRelease = graph.hasTask(uploadArchives)
+    println "Is Release Build: $isRelease"
+    ext.isReleaseBuild = isRelease
+    return isRelease
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+    onlyIf{
+        return isReleaseBuild()
+    }
+}
+javadoc.onlyIf{
+    return isReleaseBuild()
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+signArchives.onlyIf{
+    return isReleaseBuild()
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Example Application'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'This is a supporting lib for the main project Bulbs_Core at https://github.com/datenstrudel/bulbs-core'
+                url 'https://github.com/datenstrudel/bulbs-shared'
+
+                scm {
+                    connection 'scm:git:https://github.com/datenstrudel/bulbs-shared.git'
+                    developerConnection 'scm:git:https://github.com/datenstrudel/bulbs-shared.git'
+                    url 'https://github.com/datenstrudel/bulbs-shared.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'datenstrudel'
+                        name 'Thomas Wendzinski'
+                        email 'twx1@gmx.de'
+                    }
+                }
+            }
+        }
+    }
+}
+uploadArchives.dependsOn assemble
+
+task provideSecring(type:Exec){
+    onlyIf{
+        return isReleaseBuild()
+    }
+    commandLine 'openssl', 'aes-256-cbc', '-d', '-a', '-pass', 'pass:' + gpgFileEncryptionKey, '-in', 'ci-scripts/pubring.gpg.encr', '-out', 'ci-scripts/pubring.gpg'
+
+}
+task providePubring(type:Exec){
+    onlyIf{
+        return isReleaseBuild()
+    }
+    commandLine 'openssl', 'aes-256-cbc', '-d', '-a', '-pass', 'pass:' + gpgFileEncryptionKey, '-in', 'ci-scripts/secring.gpg.encr', '-out', 'ci-scripts/secring.gpg'
+}
+signArchives.dependsOn provideSecring
+signArchives.dependsOn providePubring

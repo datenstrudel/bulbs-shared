@@ -14,8 +14,7 @@ import java.util.List;
  * @author Thomas Wendzinski
  */
 @ApiModel(
-        value="Control a group of bulbs by their respetive group ID. ",
-        description = "This way you can simultaneously control devices.",
+        description = "Control a group of bulbs by their respetive group ID. This way you can simultaneously control devices.",
         parent=DtoAbstractActuatorCmd.class,
         discriminator = "type"
 )

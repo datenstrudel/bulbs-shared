@@ -9,6 +9,7 @@ import java.util.Date;
  *
  * @author Thomas Wendzinski
  */
+@Deprecated
 public class TypeConverterDate implements 
         JsonSerializer<Date>, JsonDeserializer<Date>{
 

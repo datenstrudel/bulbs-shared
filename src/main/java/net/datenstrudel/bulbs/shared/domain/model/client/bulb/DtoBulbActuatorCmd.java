@@ -2,16 +2,18 @@ package net.datenstrudel.bulbs.shared.domain.model.client.bulb;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import net.datenstrudel.bulbs.shared.domain.model.bulb.BulbState;
+import net.datenstrudel.bulbs.shared.domain.model.bulb.CommandPriority;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Wraps all information necessary in order to invoke the change of a Bulb's state.
  */
 @ApiModel(
-        value="Control a single bulb",
         description = "Concrete actuation command to address one specific bulb.",
         parent=DtoAbstractActuatorCmd.class,
         discriminator = "type"
@@ -29,7 +31,11 @@ public class DtoBulbActuatorCmd
     
     //~ Construction ///////////////////////////////////////////////////////////
     public DtoBulbActuatorCmd(){}
-    
+    public DtoBulbActuatorCmd(String bulbId, String appId, CommandPriority priority, List<BulbState> states, boolean loop) {
+        super(appId, priority, states, loop);
+        this.bulbId = bulbId;
+    }
+
     //~ Method(s) //////////////////////////////////////////////////////////////
     public String getBulbId() {
         return bulbId;
@@ -42,8 +48,7 @@ public class DtoBulbActuatorCmd
     public String getType() {
         return type;
     }
-    
-    
+
     @Override
     public boolean sameValueAs(DtoBulbActuatorCmd other) {
         return this.equals(other);

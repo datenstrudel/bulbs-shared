@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * A value object that represents the state of a bulb.
  */
-@ApiModel(value = "Defines a single state of a single bulb.")
+@ApiModel(description = "Defines a single state of a single bulb.")
 public class BulbState implements ValueObject<BulbState>, Serializable {
 
     //~ Member(s) //////////////////////////////////////////////////////////////
